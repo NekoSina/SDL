@@ -1,4 +1,8 @@
 #include"window.h"
+//==============================================================================> static member initialization  
+SDL_Window* Window::m_window = nullptr;
+SDL_Renderer* Window::m_renderer = nullptr;
+//==============================================================================> SDL and SDL extentions initializer
 bool Window::Init(){
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
         std::cout<<"SDL_INIT_VIDEO failed "<< SDL_GetError()<<std::endl;// Initialize SDL2
@@ -15,9 +19,7 @@ bool Window::Init(){
         SDL_WINDOW_OPENGL                  
     );
 
-    // Check that the window was successfully created
     if (m_window == nullptr) {
-        // In the case that the window could not be made...
         std::cout<<"SDL_INIT_VIDEO failed "<< SDL_GetError()<<std::endl;
         return false;
     }
@@ -25,27 +27,33 @@ bool Window::Init(){
         std::cerr<<"IMG_INIT() "<<SDL_GetError()<<std::endl;
         return false;
     }
-    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
-    if (m_renderer == nullptr){
+    Window::m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+    if (Window::m_renderer == nullptr){
         std::cerr<<"SDL_CREATERENDERER failed "<< SDL_GetError()<<std::endl;
         return false;
     }
     return true;
 }
+//============================================================================> Constructor
 Window::Window(std::string title, int width, int height):
  m_title(title), m_width(width), m_height(height)
 {
     _isActive = Init();
 }
-
+Window::Window(){
+    std::cout<< "default constructor called" << std::endl;
+}
+//=============================================================================> Destructor
 Window::~Window()
 {
-    SDL_DestroyRenderer(m_renderer);
+    SDL_DestroyRenderer(Window::m_renderer);
     SDL_DestroyWindow(m_window);
     IMG_Quit();
     SDL_Quit();
 }
+//==============================================================================> Bool Loop
 bool Window::isActive()const{ return _isActive;}
+//==============================================================================> Event handler
 void Window::Event(){
     SDL_Event event;
     if(SDL_PollEvent(&event))
@@ -61,18 +69,11 @@ void Window::Event(){
         }
     }
 }
+//================================================================================> Background colour
 void Window::Clear(){
-    SetColour(76, 114, 173, 0);
-    SDL_RenderClear(m_renderer);
-    SDL_Rect rect;
-    rect.h = 200;
-    rect.w = 300;
-    rect.x = (SCREEN_WIDTH - rect.w)/2;;
-    rect.y = (SCREEN_HEIGHT - rect.h)/2;
-    SetColour(76, 165, 173,0);
-    SDL_RenderFillRect(m_renderer, &rect);
-    SDL_RenderPresent(m_renderer);
+    SDL_RenderPresent(Window::m_renderer);
 }
+//=================================================================================> setting the renderer colour
 void Window::SetColour(Uint8 r, Uint8 g, Uint8 b, Uint8 a){
-    SDL_SetRenderDrawColor(m_renderer, r, g, b, a);
+    SDL_SetRenderDrawColor(Window::m_renderer, r, g, b, a);
 }

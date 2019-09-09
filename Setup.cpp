@@ -1,5 +1,6 @@
 #include"Setup.h"
-float GetRandomFloat(float min, float max)
+
+float GetRandom(float min, float max)
 {
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
@@ -13,5 +14,5 @@ int Sign(float x) {
 		return -1;
 }
 float Map(float x, float min1, float max1, float min2, float max2){
-
+	return (x-min1)*(max2 - min2)/(max1 - min1) + min2;
 }
