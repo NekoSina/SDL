@@ -20,6 +20,7 @@ star class is a child of window. and i get 2 windows when even a default constru
 renderer static so there will be only one instance of them."
 issue#3:"static member undefined refernce"
 issue#4:"image flicker when try to render multiple things in different places."
+answer:"only one present should be in code. and the order is CLEAR, EVENTS, DRAW, PRESENT"
 鑓塵幗膂蓿f寥寢膃暠瘉甅甃槊槎f碣綮瘋聟碯颱亦尓㍍i:i:i;;:;:: : :
 澣幗嶌塹傴嫩榛畝皋i袍耘蚌紕欒儼巓襴踟篁f罵f亦尓㍍i:i:i;;:;:: : :
 漲蔭甃縟諛f麭窶膩I嶮薤篝爰曷樔黎㌢´　　｀ⅷ踟亦尓㍍i:i:i;;:;:: : :

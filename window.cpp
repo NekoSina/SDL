@@ -71,9 +71,15 @@ void Window::Event(){
 }
 //================================================================================> Background colour
 void Window::Clear(){
-    SDL_RenderPresent(Window::m_renderer);
+    SetColour(18, 33, 48, 0);
+    SDL_RenderClear(Window::m_renderer);
+    
 }
 //=================================================================================> setting the renderer colour
 void Window::SetColour(Uint8 r, Uint8 g, Uint8 b, Uint8 a){
     SDL_SetRenderDrawColor(Window::m_renderer, r, g, b, a);
+}
+//=================================================================================> Present
+void Window::Present(){
+    SDL_RenderPresent(Window::m_renderer);
 }

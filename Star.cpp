@@ -33,7 +33,6 @@ void Star::Draw(){
     {   
         SDL_RenderCopy(Window::m_renderer, _star_texture, nullptr, &rect[i]);
     }
-    Window::Clear();
 }
 void Star::RandomLocation(){
     m_x = GetRandom(0, SCREEN_WIDTH);
