@@ -1,5 +1,6 @@
 #include"Star.h"
-Star::Star(int s)
+//============================================================================> Constructor
+Star::Star()
 {
     auto surface = IMG_Load(image_path.c_str());
     if (!surface){
@@ -10,32 +11,50 @@ Star::Star(int s)
         std::cerr<< "SDL_CreateTextureFromSurface(m_renderer, surface) "<<SDL_GetError()<<std::endl;
     }
     SDL_FreeSurface(surface);
-    
-    for (int i = 0; i < 100; i++)
+    for (i = 0; i < 15; i++)
     {
-        RandomLocation(); 
-        rect[i].h = s;
-        rect[i].w = s;
-        rect[i].x = m_x;
-        rect[i].y = m_y;
-    }    
-}
+        RandomLocation(i);
+        rect[i].h = 8;
+        rect[i].w = 8;
+    }
+    std::cout<<"Star() randomlocation triggered"<<std::endl;
 
+    
+}
+//============================================================================> Destructor
 Star::~Star()
 {
     SDL_DestroyTexture(_star_texture);
 }
+//============================================================================> 
 void Star::Update(){
+    z = z - 9;
+}
+//============================================================================> 
+ void Star::Draw(){
+     for (i = 0;i < 15; i++)
+     {  
+        m_x = rect[i].x - SCREEN_WIDTH/2;
+        m_y = rect[i].y - SCREEN_HEIGHT/2;
+        rect[i].h = Map(z, 500, SCREEN_WIDTH, 20, 0);
+        rect[i].w = Map(z, 500, SCREEN_WIDTH, 20, 0);
+        rect[i].x = Map(m_x/z, -0.5, 0.5, 0, SCREEN_WIDTH);
+        rect[i].y = Map(m_y/z, -0.5, 0.5, 0, SCREEN_HEIGHT);
+        if(rect[i].x > SCREEN_WIDTH|| rect[i].x < 0 || rect[i].y> SCREEN_HEIGHT || rect[i].y< 0){
+            RandomLocation(i);
+        }
 
-}
-void Star::Draw(){
-    for (size_t i = 0; i < 100; i++)
-    {   
         SDL_RenderCopy(Window::m_renderer, _star_texture, nullptr, &rect[i]);
-    }
+        //std::cin.get();
+     }
+      
+ }
+//============================================================================> 
+void Star::RandomLocation(int starindex){
+    rect[i].x = GetRandom(0, SCREEN_WIDTH);
+    rect[i].y = GetRandom(0, SCREEN_HEIGHT);
+
+    z = SCREEN_WIDTH;
 }
-void Star::RandomLocation(){
-    m_x = GetRandom(0, SCREEN_WIDTH);
-    m_y = GetRandom(0, SCREEN_HEIGHT);
-    m_z = GetRandom(0, SCREEN_WIDTH);
-}
+//============================================================================> 
+

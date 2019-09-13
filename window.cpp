@@ -64,6 +64,7 @@ void Window::Event(){
             _isActive = false;
             break;
         
+        
         default:
             break;
         }
@@ -71,7 +72,12 @@ void Window::Event(){
 }
 //================================================================================> Background colour
 void Window::Clear(){
-    SetColour(18, 33, 48, 0);
+    SDL_PumpEvents();
+    int x, y;
+
+    SDL_GetMouseState(&x, &y);
+    //std::cout<<colourr<<", "<<colourg<<", "<< colourb<<std::endl;
+    SetColour(0, 0, 0, 0);
     SDL_RenderClear(Window::m_renderer);
     
 }
