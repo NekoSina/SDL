@@ -51,10 +51,9 @@ void Star::Update(){
  }
 //============================================================================> 
 void Star::RandomLocation(int starindex){
-    rect[i].x = GetRandom(0, SCREEN_WIDTH);
-    rect[i].y = GetRandom(0, SCREEN_HEIGHT);
+    rect[starindex].x = GetRandom(0, SCREEN_WIDTH);
+    rect[starindex].y = GetRandom(0, SCREEN_HEIGHT);
 
     z = SCREEN_WIDTH;
 }
 //============================================================================> 
-

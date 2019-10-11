@@ -8,8 +8,7 @@ int main(int argc, char* argv[]) {
     Window window1("StarField", 600, 600);
     //creating stars
     Star Starset;
-    float x;
-    float y = 0.5;
+
     //The window is open: could enter program loop here  
     while (window1.isActive()){
         frameStart = SDL_GetTicks();
@@ -20,7 +19,6 @@ int main(int argc, char* argv[]) {
         window1.Present();
         frameTime = SDL_GetTicks() - frameStart;
         SDL_Delay(3.5);
-
     }
 
 
